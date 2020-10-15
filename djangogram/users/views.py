@@ -1,50 +1,50 @@
-from django.contrib import messages
-from django.contrib.auth import get_user_model
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
-from django.views.generic import DetailView, RedirectView, UpdateView
+from django.shortcuts import render
+from django.contrib.auth import authenticate, login
+from .forms import SignUpForm
 
-User = get_user_model()
+def main(request):
+    if request.method == 'GET':
+        return render(request, 'users\main.html')
+    # 장고 문서 내에 존재하는 장고 로그인폼 사용  겟방식과 포스트 분기 코드 작성
+    elif request.method == 'POST':  
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(request, username=username, password=password)
 
+            if user is not None:
+                login(request, user)
+                # Redirect to a success page.
+                return HttpResponseRedirect(reverse('posts:index'))
 
-class UserDetailView(LoginRequiredMixin, DetailView):
+            else:
+                # Return an 'invalid login' error message.
+                return render(request, 'users\main.html')
+# 장고폼사용 회원가입 로직 
+def signup(request):
+    if request.method == 'GET':
+        form = SignUpForm()
 
-    model = User
-    slug_field = "username"
-    slug_url_kwarg = "username"
+        return render(request, 'users/signup.html', {'form' : form})
 
+    elif request.method == 'POST':
+        form = SignUpForm(request.POST)
 
-user_detail_view = UserDetailView.as_view()
+        if form.is_valid():
+            form.save()
+#자동로그인 성공하면 cleaned 데이터에 저장됨
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
 
+            if user is not None:
+                login(request, user)
+                # Redirect to a success page.
+                return HttpResponseRedirect(reverse('posts:index'))
 
-class UserUpdateView(LoginRequiredMixin, UpdateView):
+            else:
+                # Return an 'invalid login' error message.
+                return render(request, 'users\main.html')
 
-    model = User
-    fields = ["name"]
-
-    def get_success_url(self):
-        return reverse("users:detail", kwargs={"username": self.request.user.username})
-
-    def get_object(self):
-        return User.objects.get(username=self.request.user.username)
-
-    def form_valid(self, form):
-        messages.add_message(
-            self.request, messages.INFO, _("Infos successfully updated")
-        )
-        return super().form_valid(form)
-
-
-user_update_view = UserUpdateView.as_view()
-
-
-class UserRedirectView(LoginRequiredMixin, RedirectView):
-
-    permanent = False
-
-    def get_redirect_url(self):
-        return reverse("users:detail", kwargs={"username": self.request.user.username})
-
-
-user_redirect_view = UserRedirectView.as_view()
+        return render(request, 'users/main.html')
