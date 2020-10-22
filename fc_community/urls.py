@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include     # 밑에 include import 해준다
+from fc_user.views import home   # 홈추가
 
 urlpatterns = [
     path('admin/', admin.site.urls),  # admin 은 기본적으로 설정되어잇다  
-    path('fc_user/', include('fc_user.urls'))  #fc_user  안에 있는 모든 url 들은 fc_user.urls 에서 관리하겠다 선언
+    path('fc_user/', include('fc_user.urls')),  #fc_user  안에 있는 모든 url 들은 fc_user.urls 에서 관리하겠다 선언
+    path('', home),  # 홈추가
 ]
