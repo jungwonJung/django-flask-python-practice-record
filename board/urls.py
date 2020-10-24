@@ -3,6 +3,7 @@ from django.urls import path
 from . import views  
 
 urlpatterns = [
+    path('detail/<int:pk>/', views.board_detail),    #views 7번라인 참조  숫자형의변수 pk
     path('list/', views.board_list),  
-   
+    path('write/', views.board_write),
 ]
