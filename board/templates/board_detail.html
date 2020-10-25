@@ -8,8 +8,17 @@
                 <input type="text" class="form-control" id="title" value="{{ board.title }}" readonly/>
                 <label for="contents">내용</label>
                 <textarea class="form-control" readonly>{{ board.contents }}</textarea>
+                <!-- 태그 추가 -->
+                <label for="tags">태그</label>
+                <span id="tags" class="form-control">
+                    {{ board.tags.all|join:", " }}
+                    <!-- join 은 뒤에오는 문자열을 앞에있는 리스트 사이사이에 넣어서 만들어달라는거임 14번 만들어서 16~18삭제 -->
+                    <!-- {% for tag in board.tags.all %}
+                    {{ tag.name }},
+                    {% endfor %} -->
+                </span>
             </div>
-            <button class="btn btn-primary">돌아가기</button>
+            <button class="btn btn-primary" onclick="location.href='/board/list'">돌아가기</button>
     </div>
 </div>
 {% endblock %}

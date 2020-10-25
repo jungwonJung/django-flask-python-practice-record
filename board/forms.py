@@ -14,3 +14,5 @@ class BoardForm(forms.Form):
             'required' : '내용을 입력해주세요.'
         },
             label="내용", widget=forms.Textarea)
+    tags = forms.CharField(
+            required=False, label="태그")    # required =False 이기때문에 태그창에 태그가 없어도 생성은됨

@@ -23,7 +23,12 @@ class LoginForm(forms.Form):
         password = cleaned_data.get('password')
 
         if username and password:
-            fc_user = Fc_user.objects.get(username=username)
+            try:                                                  # 26~29 예외처리 하는 방법
+                fc_user = Fc_user.objects.get(username=username)
+            except Fc_user.DoesNotExist:
+                self.add_error('username', '아이디가 없습니다')
+                return
+            
             if not check_password(password, fc_user.password):
                 self.add_error('password', '비밀번호를 틀렸습니다')
             else:

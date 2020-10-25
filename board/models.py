@@ -7,7 +7,8 @@ class Board(models.Model): #Board 라는 클래스 설정
                                 verbose_name='제목')
     contents = models.TextField(verbose_name='내용')
     writer = models.ForeignKey('fc_user.Fc_user', on_delete=models.CASCADE,  # 사용자 정보가 삭제되면 ForeignKey 가 가르키고 있는 값을 같이 삭제하겟다
-                                verbose_name='작성자')       
+                                verbose_name='작성자') 
+    tags = models.ManyToManyField('tag.Tag', verbose_name='태그')                                  
     registered_dttm = models.DateTimeField(auto_now_add=True,
                                 verbose_name='작성시간')
 

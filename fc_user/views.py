@@ -10,14 +10,15 @@ from django import forms
 # request 를 꼭 적고 반환하고 싶은 html(함수) 을 적어야함
 # get 방식과 post 방식을 분기해줌
 
-def home(request):
-    user_id = request.session.get('user')
+def home(request):   # 만약 로그인했을경우 홈페이지에서 로그인 버튼이 보이면 안됨 로그아웃이 보여야함 그렇기 때문에 이걸 template 에서 할수있게해야함
+    # user_id = request.session.get('user')
 
-    if user_id:
-        fc_user = Fc_user.objects.get(pk=user_id)
-        return HttpResponse(fc_user.username)
-    return HttpResponse('Home!')
-
+    # if user_id:
+    #     fc_user = Fc_user.objects.get(pk=user_id)    
+    #     return HttpResponse(fc_user.username) 홈화면 설정해주기위해 render 를 사용
+    # return HttpResponse('Home!')
+    
+    return render(request, 'home.html')
 def logout(request):
     if request.session.get('user'):
         del(request.session['user'])

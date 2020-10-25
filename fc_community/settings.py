@@ -24,9 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'ane=u3t@(_odn33x&#-wg(8l2@$wt=-+f@8fl64s1d_*mn&n-e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False   # False 실제 서비스할때는 꺼놔야함
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'wjdwjd1501.pythonanywhere.com'    # 아이디와 pythonanywhere.com 입력   *만 해도 무리는 없음
+]
 
 
 # Application definition
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'board',
     'fc_user',   # 설정 안해주면 migrate 할 대상이 없다고 나옴  앱세팅 해줘야함
+    'tag',
 ]
 
 MIDDLEWARE = [
@@ -121,7 +124,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'    # static 파일 설정  
-STATIC_DIR = os.path.join(BASE_DIR, 'static')   # static 위치 설정 , bootstrap 4.3 them 무료다운하여 static 폴더에 넣음 min.css
-STATICFILES_DIRS = [ 
-    STATIC_DIR,
-]
+# STATIC_DIR = os.path.join(BASE_DIR, 'static')   # static 위치 설정 , bootstrap 4.3 them 무료다운하여 static 폴더에 넣음 min.css
+# STATICFILES_DIRS = [ 
+#     STATIC_DIR,
+# ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
