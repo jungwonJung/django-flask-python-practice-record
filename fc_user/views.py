@@ -90,5 +90,5 @@ def register(request):
         )
 
             fc_user.save()   # 저장해주기
-        return render(request, 'register.html', res_data)  # 저장하고 나서 register 페이지를 리턴 반환해줫기 때문에 페이지 이동없이 그대로
+        return render(request, 'home.html', res_data)  # 저장하고 나서 register 페이지를 리턴 반환해줫기 때문에 페이지 이동없이 그대로
                                                            # res_data 를 register.html 에서 보여주라고 했기때문에 에러 메시지를 보여주는 기능을 제작해야함

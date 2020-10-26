@@ -12,10 +12,10 @@ class Board(models.Model): #Board 라는 클래스 설정
     registered_dttm = models.DateTimeField(auto_now_add=True,
                                 verbose_name='작성시간')
 
-def __str__(self):
-    return self.title
+    def __str__(self):
+        return self.title
 
-class Meta:
-        db_table = 'fastcampus_fc_user'
+    class Meta:
+        db_table = 'fastcampus_fc_board'
         verbose_name = '보더콜리단 게시글'  
         verbose_name_plural = '보더콜리단 게시글'

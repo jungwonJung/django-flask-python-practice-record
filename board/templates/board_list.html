@@ -14,7 +14,7 @@
             </thead>
             <tbody class="text-dark">
                 <!-- 컨트롤러를 통해서 넘어온 boards  반복문을 통해서 만들어진 변수는 board -->
-                {% for board in boards %}   \
+                {% for board in boards %}  
                 <!-- 게시글 list 에서 게시들을 누르면 게시글 detail 로 이동하게해줌 19번 -->
                 <tr onclick="location.href='/board/detail/{{ board.id }}/'">
                     <th>{{ board.id }}</th>

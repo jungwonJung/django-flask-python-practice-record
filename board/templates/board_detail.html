@@ -11,7 +11,7 @@
                 <!-- 태그 추가 -->
                 <label for="tags">태그</label>
                 <span id="tags" class="form-control">
-                    {{ board.tags.all|join:", " }}
+                    {{ board.tags.all.name|join:", " }}
                     <!-- join 은 뒤에오는 문자열을 앞에있는 리스트 사이사이에 넣어서 만들어달라는거임 14번 만들어서 16~18삭제 -->
                     <!-- {% for tag in board.tags.all %}
                     {{ tag.name }},
@@ -22,3 +22,6 @@
     </div>
 </div>
 {% endblock %}
+
+
+

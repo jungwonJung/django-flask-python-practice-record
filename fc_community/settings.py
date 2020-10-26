@@ -24,10 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'ane=u3t@(_odn33x&#-wg(8l2@$wt=-+f@8fl64s1d_*mn&n-e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False   # False 실제 서비스할때는 꺼놔야함
+DEBUG = True   # False 실제 서비스할때는 꺼놔야함
 
 ALLOWED_HOSTS = [
-    'wjdwjd1501.pythonanywhere.com'    # 아이디와 pythonanywhere.com 입력   *만 해도 무리는 없음
+    'wjdwjd1501.pythonanywhere.com',    # 아이디와 pythonanywhere.com 입력   *만 해도 무리는 없음
+    '127.0.0.1',
 ]
 
 
