@@ -9,8 +9,8 @@
 
 
 작성 순서 
-1. Models 작성
-2. Migrate 진행
-3. View 작성
-4. URL 설정
-5. Template 작성 
+# 1. Models 작성
+# 2. Migrate 진행
+# 3. View 작성
+# 4. URL 설정
+# 5. Template 작성 
