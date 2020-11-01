@@ -3,10 +3,11 @@ from flask import Flask
 from flask import redirect
 from flask import render_template  #template 연결 
 from flask import request    # 플라스크 get,post 위해 request 갖고오기
+from flask import session    # session 사용하기위해 추가
 from models import db  
 from models import Dogwalker    # moels.py 안에서 만든 class 가져오기 
 from flask_wtf.csrf import CSRFProtect # csrf 설정추가
-from forms import RegisterForm
+from forms import RegisterForm, LoginForm
 # from flask_sqlalchemy import SQLAlchemy # sqlalchemy 갖고온다
 
 # basedir = os.path.abspath(os.path.dirname(__file__))   # 현재있는 파일의 directory name 을 절대경로로 지정해준다
@@ -47,9 +48,28 @@ def register():
         return redirect('/')   # 사용하기위해  3번 코드추가
     return render_template('register.html', form=form)  # 함수의 인자값을 전달할때처럼 작성
 
+@app.route('/logout', methods=['GET'])
+def logout():
+    session.pop('userid', None)    # pop 을하게되면 그값을 꺼내서 삭제
+    return redirect('/')
+
+
+@app.route('/login', methods=['GET','POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        session['userid'] = form.data.get('userid')   # 로그인한 사용자가 누구인지를 알기위해 userid 를 저장 세션에
+        
+        return redirect('/')
+    return render_template('login.html', form=form)    # 로그인 폼을 만들고나서 항상 전달해줘야함 에러발생했었음
+
+
+
+
 @app.route('/')
 def hello():
-    return render_template('hello.html')  #hello.html 이라는 파일로 연결  templates 라는 폴더에 바로연결
+    userid = session.get('userid', None)
+    return render_template('hello.html', userid=userid)  #hello.html 이라는 파일로 연결  templates 라는 폴더에 바로연결
 
 if __name__ == "__main__":
     basedir = os.path.abspath(os.path.dirname(__file__))  
