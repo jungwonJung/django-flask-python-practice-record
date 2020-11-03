@@ -10,6 +10,9 @@ class DogWalker(db.Model):
     username = db.Column(db.String(8))
 
 
+
+
+
     # 직렬화
     @property
     def serialize(self):

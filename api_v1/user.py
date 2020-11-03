@@ -2,15 +2,19 @@ from flask import jsonify
 from . import api
 from flask import request  # 폼을 사용하지않기때문에 request 를 가져온다
 from models import DogWalker, db
+from flask_jwt import jwt_required   # 데코레이터 사용
+
 
 
 @api.route('/users', methods=['GET','POST'])
+@jwt_required()   # 로그인을 하지않고 home 으로 갈시 에러가뜸
 def users():
     if request.method == 'POST':        # 만약요청이 POST 일 경우
-        userid = request.form.get('userid')
-        username = request.form.get('username')
-        password = request.form.get('password')
-        re_password = request.form.get('re-password')
+        data = request.get_json()           # data를 json 형태로 가져오겟다고 함수선언
+        userid = data.get('userid')      # form 이 아니라 json 형태의 데이터로 받아오기때문에
+        username = data.get('username')
+        password = data.get('password')
+        re_password = data.get('re-password')
 
         if not (userid and username and password and re_password):
             return jsonify({'error' : 'No arguments'}), 400  # 에러메시지와 함께 400 에러 발생시키겠음
@@ -32,6 +36,25 @@ def users():
     users = DogWalker.query.all()    # 모든데이터를 가져오는 코드
     return jsonify([user.serialize for user in users ])
 
+# @api.route('/users/login', methods=['GET'])
+# def login():
+#     if request.method == 'GET'
+#     data = request.get_json()
+#     userid = data.get('userid')
+#     password = data.get('password')
+
+#     if not (userid and   password ):
+#             return jsonify({'error' : 'No arguments'}), 400  # 에러메시지와 함께 400 에러 발생시키겠음
+
+#         dogwalker = DogWalker()
+#         dogwalker.userid = userid
+#         dogwalker.username = username
+#         dogwalker.password = password
+
+#         db.session.add(dogwalker)   
+#         db.session.commit()
+
+#         return jsonify(), 201
 
 @api.route('/users/<uid>', methods=['GET', 'PUT', 'DELETE'])   # URL 에서 입력값을 받을수있게 <uid> 로 표현 수정 삭제 조회를 지원하기위해 'GET', 'PUT', 'DELETE' 작성
 def user_detail(uid):
