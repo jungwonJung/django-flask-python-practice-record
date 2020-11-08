@@ -1,9 +1,13 @@
-from indeed import extract_indeed_pages
+from indeed import get_jobs as get_indeed_jobs
+from sto import get_jobs as get_sto_jobs
+
+# indeed_jobs = get_indeed_jobs()
+
+sto_jobs = get_sto_jobs()
 
 
-max_indeed_pages = extract_indeed_pages()
 
-print(max_indeed_pages)
+
 
 # import requests    #  4번라인 코드를위해 pip 설치
 # from bs4 import BeautifulSoup  # 내가원하는 html 코드를 가져오기위해 beautifulsoup4 설치
@@ -22,6 +26,9 @@ print(max_indeed_pages)
 #     pages.append(int(link.string))
 
 # max_page = pages[-1]
+
+# for n in range(max_page):
+#     print(f"&start={n*10}")
 
 # indeed.py 에 정리하고 재설정 
 
