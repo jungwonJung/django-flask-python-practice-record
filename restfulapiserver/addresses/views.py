@@ -45,5 +45,22 @@ def address(request, pk):
         return HttpResponse(status=204)   # DELETE는 HttpResponse
 
 
+@csrf_exempt
+def login(request):
+
+    if request.method == 'POST':
+        data=JSONParser().parse(request)
+        search_name = data['name']
+        print(search_name)
+        obj=Addresses.objects.get(name=search_name)
+        print(obj.phone_number)
+
+        if data['phone_number'] == obj.phone_number:
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=400)
+
+
+
 
 

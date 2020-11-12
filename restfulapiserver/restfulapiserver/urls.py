@@ -23,5 +23,6 @@ from addresses import views                 # view 리스트 url 설정은 메�
 urlpatterns = [
     path('addresses', views.address_list),
     path('addresses/<int:pk>', views.address),
+    path('login' , views.login),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
