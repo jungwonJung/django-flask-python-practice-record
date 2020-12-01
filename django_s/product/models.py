@@ -7,7 +7,17 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='상품가격')  # 숫자를 적을수있게 IntegerField 사용
     description = models.TextField(verbose_name='상품내용')  # 상품내용을 길게 적을수있게 TextField 사용 제한이없다
     stuck = models.IntegerField(verbose_name='재고')
-    add_date = models.DateTimeField(auto_now_add=True, verbose_name='등록날짜')
+    register_date = models.DateTimeField(auto_now_add=True, verbose_name='등록날짜')
+
+    
+    def __str__(self):    # 각 모델을 문자열로 변환했을때 표시해주기위함
+        return self.name
+
+
+    class Meta:
+        db_table = 'jung_product'
+        verbose_name = '상품'
+        verbose_name_plural = '상품'   # 복수형이름도 지정해주기로한다
 
 """
 일반적으로 상품의 정보를 표시할때는 상품명 상품가격 상품의내용 그리고 재고수량과 상품이 등록된날짜가 필요하다
