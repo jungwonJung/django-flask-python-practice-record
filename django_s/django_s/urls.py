@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from user.views import index, RegisterView  # user app 폴더 밑에 views 밑에 index 파일을 가져온다
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', index),
+    path('register/', RegisterView.as_view()),  #  class를사용하는경우 as_view 를 사용
 ]
