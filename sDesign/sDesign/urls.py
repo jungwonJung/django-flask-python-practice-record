@@ -50,6 +50,8 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('register.urls')),
+    path('expenses/', include('expenses.urls')),
+    path('income/', include('income.urls')),
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),  # 메인페이지를 스웨거 기본홈으로 보여주겠다
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]

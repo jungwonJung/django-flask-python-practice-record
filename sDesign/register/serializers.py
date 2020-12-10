@@ -46,7 +46,7 @@ class LoginSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email','password','username', 'tokens'] # User database 의 필드 값 사용
+        fields = ['email','id','username', 'tokens','password'] # User database 의 필드 값 사용
 
 
     def validate(self, attrs): # parameter 내용 restframework/serializers.py validate 내장함수 사용
@@ -65,10 +65,10 @@ class LoginSerializer(serializers.ModelSerializer):
 
         return {                  # response 내용 
             'email' : user.email,
-            # 'username' : user.username,
+            'username' : user.username,
             'password' : user.password,
             'tokens' : user.tokens,
-
+            
         }
 
         return super().validate(attrs)

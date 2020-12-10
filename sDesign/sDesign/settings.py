@@ -39,9 +39,21 @@ INSTALLED_APPS = [
     'rest_framework',
     'sDesign',
     'drf_yasg',
+    'expenses',
+    'income',
 ]
 
 # 내가 사용할 라이브러리,API 를 추가시켜주는곳 INSTALLED_APPS
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS' :{
+        'Bearer':{
+            'type':'apiKey',
+            'name':'Authorization',
+            'in':'header'
+        }
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -93,6 +105,8 @@ DATABASES = {
 
 
 REST_FRAMEWORK={
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5,
     'NON_FIELD_ERRORS_KEY': 'error',           #  serializers.py 에서 설정한 에러코드가 error라는 명으로 올라옴 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
