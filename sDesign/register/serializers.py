@@ -4,6 +4,15 @@ from django.contrib.auth.models import User  # 13번 model=User 를 가져오기
 from .models import User
 from django.contrib import auth
 from rest_framework.exceptions import AuthenticationFailed     # 인증실패 51번코드 추가
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.contrib.sites.shortcuts import get_current_site
+from django.urls import reverse
+from .utils import Util
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
 
 class RegisterSerializer(serializers.ModelSerializer):  # Register serializer class 설정 
@@ -46,7 +55,7 @@ class LoginSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email','id','username', 'tokens','password'] # User database 의 필드 값 사용
+        fields = ['email','username', 'tokens','password'] # User database 의 필드 값 사용
 
 
     def validate(self, attrs): # parameter 내용 restframework/serializers.py validate 내장함수 사용
@@ -71,4 +80,33 @@ class LoginSerializer(serializers.ModelSerializer):
             
         }
 
+        return super().validate(attrs)
+
+
+
+class ResetPasswordEmailRequestSerializer(serializers.Serializer):
+    email = serializers.EmailField(min_length = 2)
+
+    class Meta:
+        fields = ['email']
+
+
+
+class SetNewPasswordSerializer(serializers.Serializer):
+    password = serializers.CharField(
+        min_length = 6, max_length = 64, write_only=True)
+    token = serializers.CharField(
+        min_length = 1 , write_only=True)
+    uidb64 = serializers.CharField(
+        min_length = 1 , write_only=True)  
+    
+    
+    class Meta:
+        fields = ['password', 'token', 'uidb64']
+
+    def validate(self. attrs):
+        try:
+            pass
+        except expression as identifier:
+            pass
         return super().validate(attrs)
