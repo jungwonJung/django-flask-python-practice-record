@@ -128,4 +128,4 @@ class SetNewPasswordAPIView(generics.GenericAPIView):
     def patch(self, request):
         serializer = self.serializer_class(data = request.data)
         serializer.is_valid(raise_exception=True)
-        return Response({'success' : True, 'message' : '비밀번호가 성곡적으로 변경되었습니다'}, status=status.HTTP_200_OK)
+        return Response({'success' : True, 'message' : '비밀번호가 성공적으로 변경되었습니다'}, status=status.HTTP_200_OK)
