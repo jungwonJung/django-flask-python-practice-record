@@ -1,7 +1,7 @@
 from django import forms  # 쟝고 에서 forms 를 가져온다
 from django.contrib.auth.hashers import check_password, make_password    # 비밀번호 암호화기능 가져오기 입력받은값과 인코딩된 값을 비교해준다
 from .models import User
-
+from django.views.decorators.csrf import csrf_exempt
 
 class RegisterForm(forms.Form):    
     email = forms.EmailField(     # RegisterForm 내의 email 은 forms의 emailfield 에러메시지중에 required 가 나오면 이메일을 입력해주세요 출력
@@ -22,13 +22,14 @@ class RegisterForm(forms.Form):
         },
         widget=forms.PasswordInput, label='비밀번호 확인 ' 
     )
-
+    @csrf_exempt
     def clean(self):
         cleaned_data = super().clean()    # data 의 유효성체크
         email = cleaned_data.get('email')
         password = cleaned_data.get('password')   # 유효성체크가 완료된 password 데이터를 가져오겠음 
         re_password = cleaned_data.get('re_password')
 
+        print('hello')
         if password and re_password:
             if password != re_password:
                 self.add_error('password' ,'비밀번호가 서로다릅니다')       # 패스워드와 패스워드확인다를경우 error 메시지 출력
@@ -39,8 +40,6 @@ class RegisterForm(forms.Form):
                     password=make_password(password),
                 )
                 user.save()
-
-
 
 class LoginForm(forms.Form):    
     email = forms.EmailField(     # RegisterForm 내의 email 은 forms의 emailfield 에러메시지중에 required 가 나오면 이메일을 입력해주세요 출력
@@ -55,7 +54,7 @@ class LoginForm(forms.Form):
         },
         widget=forms.PasswordInput, label='비밀번호'   # PasswordInput 을 widget 으로 지정 
     )
-
+    @csrf_exempt
     def clean(self):
         cleaned_data = super().clean()    # data 의 유효성체크
         email = cleaned_data.get('email')
