@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from user.views import index, RegisterView, LoginView  # user app 폴더 밑에 views 밑에 index 파일을 가져온다
-from product.views import ProductList
+from product.views import ProductList, ProductCreate, ProductDetail
+from order.views import OrderCreate
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +25,7 @@ urlpatterns = [
     path('register/', RegisterView.as_view()),  #  class를사용하는경우 as_view 를 사용
     path('login/', LoginView.as_view()),
     path('product/', ProductList.as_view()),
+    path('product/create/', ProductCreate.as_view()),
+    path('product/<int:pk>/', ProductDetail.as_view()), # detailview 에서 int:pk 함수 가져온다 숫자형으로 왔을때 pk 라는 변수로 view 연결된다
+    path('order/create/', OrderCreate.as_view()),
 ]
