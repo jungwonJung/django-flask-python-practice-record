@@ -33,11 +33,5 @@ class RegisterForm(forms.Form):
         description = cleaned_data.get('description')
         stuck = cleaned_data.get('stuck')
 
-        if name and price and description and stuck:
-            product = Product(
-                name=name,
-                price=price,
-                description=description,
-                stuck=stuck
-            )
-            product.save()
+        if not (name and price and description and stuck):
+            self.add_error('name', '값이없습니다')

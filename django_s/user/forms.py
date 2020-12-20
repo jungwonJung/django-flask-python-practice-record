@@ -34,12 +34,6 @@ class RegisterForm(forms.Form):
             if password != re_password:
                 self.add_error('password' ,'비밀번호가 서로다릅니다')       # 패스워드와 패스워드확인다를경우 error 메시지 출력
                 self.add_error('re_password' ,'비밀번호가 서로다릅니다')
-            else:
-                user = User(         # User 데이터베이스에 저장
-                    email=email,
-                    password=make_password(password),
-                )
-                user.save()
 
 class LoginForm(forms.Form):    
     email = forms.EmailField(     # RegisterForm 내의 email 은 forms의 emailfield 에러메시지중에 required 가 나오면 이메일을 입력해주세요 출력
@@ -69,5 +63,3 @@ class LoginForm(forms.Form):
             
             if not check_password(password, user.password):   
                 self.add_error('password', '비밀번호를 틀렸습니다')
-            else:
-                self.email = user.email
