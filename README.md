@@ -2,4 +2,4 @@
 register , login , token 
 
 
-# sdesign 프로젝트 진행하는 도중에 도저히 너무 꼬여서 올려놓기만하구 사용하지않는 폴더입니다.
+# sdesign 프로젝트 폴더 추후에 작업에정 현재 잠
