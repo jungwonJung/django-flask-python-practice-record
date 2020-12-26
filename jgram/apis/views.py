@@ -64,4 +64,6 @@ class UserLoginView(BaseView):
 
 class UserLogoutView(BaseView):
     def get(self, request):
+        logout(request)
+        return self.response()
         
