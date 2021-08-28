@@ -1,0 +1,36 @@
+"""django_s URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/3.1/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import path
+from user.views import index, RegisterView, LoginView, logout  # user app 폴더 밑에 views 밑에 index 파일을 가져온다
+from product.views import ProductList, ProductCreate, ProductDetail, ProductListAPI, ProductDetailAPI
+from order.views import OrderCreate, OrderList
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', index),
+    path('register/', RegisterView.as_view()),  #  class를사용하는경우 as_view 를 사용
+    path('login/', LoginView.as_view()),
+    path('logout/', logout),
+    path('product/', ProductList.as_view()),
+    path('product/create/', ProductCreate.as_view()),
+    path('product/<int:pk>/', ProductDetail.as_view()), # detailview 에서 int:pk 함수 가져온다 숫자형으로 왔을때 pk 라는 변수로 view 연결된다
+    path('order/create/', OrderCreate.as_view()),
+    path('order/', OrderList.as_view()),
+
+    path('api/product', ProductListAPI.as_view()),
+    path('api/product/<int:pk>/', ProductDetailAPI.as_view()),
+]
